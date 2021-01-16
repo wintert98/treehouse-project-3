@@ -32,10 +32,20 @@ design.addEventListener('change',(e) => {
     }
 });
 
-//
+//Event listener for activities selected and cost update
 const register = document.getElementById('activities');
 const total = document.getElementById('activities-cost');
 let totalCost = 0;
 register.addEventListener('change',(e) => {
+   let cost = e.target.getAttribute("data-cost");
+       cost = parseInt(cost);
+       if(e.target.checked === true) {
+         totalCost += cost
+         total.innerHTML = `<p>Total: $${totalCost}</p>`
+       }
+       if(e.target.checked === false) {
+         totalCost -= cost
+         total.innerHTML = `<p>Total: $${totalCost}</p>`
+       }
    
 });
