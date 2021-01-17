@@ -32,10 +32,11 @@ design.addEventListener('change',(e) => {
     }
 });
 
-//Event listener for activities selected and cost update
+//Variables to reference the "Register for Activities" section
 const register = document.getElementById('activities');
 const total = document.getElementById('activities-cost');
 let totalCost = 0;
+//Event listener for activities selected and cost update to the DOM
 register.addEventListener('change',(e) => {
    let cost = e.target.getAttribute("data-cost");
        cost = parseInt(cost);
@@ -49,3 +50,31 @@ register.addEventListener('change',(e) => {
        }
    
 });
+
+//Variables to reference the "Payment Info" section
+const payment = document.getElementById('payment');
+const creditCard = document.getElementById('credit-card');
+const payPal = document.getElementById('paypal');
+const bitCoin = document.getElementById('bitcoin');
+payPal.setAttribute('hidden', 'hidden')
+bitCoin.setAttribute('hidden', 'hidden')
+//Event listener for payment selection and hide unselected options
+payment.addEventListener('change',(e) => {
+    
+  if(e.target.value === 'credit-card') {
+    creditCard.removeAttribute('hidden')
+    payPal.setAttribute('hidden', 'hidden')
+    bitCoin.setAttribute('hidden', 'hidden')
+  }
+  if(e.target.value === 'paypal') {
+    creditCard.setAttribute('hidden', 'hidden')
+    payPal.removeAttribute('hidden')
+    bitCoin.setAttribute('hidden', 'hidden') 
+}
+  if(e.target.value === 'bitcoin') {
+    creditCard.setAttribute('hidden', 'hidden')
+    payPal.setAttribute('hidden', 'hidden')
+    bitCoin.removeAttribute('hidden')
+}
+    
+ });
