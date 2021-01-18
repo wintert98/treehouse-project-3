@@ -1,5 +1,12 @@
-// Selecting and adding focus to name field
+//Variables for name, email, card number, zipcode, cvv, and the form field 
 const nameField = document.getElementById('name');
+const email = document.getElementById('email');
+const cardNumber = document.getElementById('cc-num');
+const zipcode = document.getElementById('zip');
+const cvv = document.getElementById('cvv');
+const forms = document.getElementsByTagName('form');
+const form = forms[0]
+// Selecting and adding focus to name field
 nameField.focus();
 // Variables to reference the "Job Role" and "Other job role" 
 const jobRole = document.getElementById('title');
@@ -35,6 +42,7 @@ design.addEventListener('change',(e) => {
 //Variables to reference the "Register for Activities" section
 const register = document.getElementById('activities');
 const total = document.getElementById('activities-cost');
+let registered = 0;
 let totalCost = 0;
 //Event listener for activities selected and cost update to the DOM
 register.addEventListener('change',(e) => {
@@ -42,10 +50,12 @@ register.addEventListener('change',(e) => {
        cost = parseInt(cost);
        if(e.target.checked === true) {
          totalCost += cost
+         registered += 1
          total.innerHTML = `<p>Total: $${totalCost}</p>`
        }
        if(e.target.checked === false) {
          totalCost -= cost
+         registered -= 1
          total.innerHTML = `<p>Total: $${totalCost}</p>`
        }
    
@@ -78,3 +88,42 @@ payment.addEventListener('change',(e) => {
 }
     
  });
+//Event listener for form field validations
+ form.addEventListener('submit',(e) => {
+   e.preventDefault();
+    const nameValue = nameField.value
+    const nameRegex = /^\w{3,}$/.test(nameValue)
+    const emailValue = email.value
+    const emailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailValue);
+    const cardNumVal = cardNumber.value
+    const cardRegex = /^\d{13,16}$/.test(cardNumVal);
+    const zipVal = zipcode.value
+    const zipRegex = /^[0-9]{5}$/.test(zipVal);
+    const cvvVal = cvv.value
+    const cvvRegex = /^[0-9]{3}$/.test(cvvVal);
+    const cardCheck = cardRegex && zipRegex && cvvRegex
+    
+    // Validates name field is filled out with more than 3 characters
+    if(nameRegex === false) {
+      e.preventDefault();
+      console.log('invalid name');
+    }
+    // Validates email field is filled out with valid email
+    if(emailRegex === false) {
+      e.preventDefault();
+      console.log('invalid email');
+    } 
+    // Validates registered field is checked with at least one activity
+    if(registered === 0) {
+      e.preventDefault();
+      console.log('not registered');  
+    }
+    // If credit card field is not hidden, validates CC# is between 13- 16 digits,zip of 5 digitsand cvv of 3 digits
+    if(creditCard.hasAttribute('hidden') === false) {
+      if(cardCheck === false) {
+      e.preventDefault();
+      console.log('invalid credit card');
+      }
+    }
+ });
+ 
