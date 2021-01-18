@@ -106,22 +106,46 @@ payment.addEventListener('change',(e) => {
     // Validates name field is filled out with more than 3 characters
     if(nameRegex === false) {
       e.preventDefault();
+      nameField.parentNode.classList.add("not-valid")
+      nameField.parentNode.classList.remove("valid")
       console.log('invalid name');
     }
+    if(nameRegex === true) {
+        e.preventDefault();
+        nameField.parentNode.classList.add("valid")
+        nameField.parentNode.classList.remove("not-valid")
+        console.log('valid name');
+      }
     // Validates email field is filled out with valid email
     if(emailRegex === false) {
-      e.preventDefault();
-      console.log('invalid email');
+       e.preventDefault();
+       email.parentNode.classList.add("not-valid")
+       email.parentNode.classList.remove("valid")
+       console.log('invalid email');
     } 
     // Validates registered field is checked with at least one activity
     if(registered === 0) {
       e.preventDefault();
+      register.classList.add("not-valid")
+      register.classList.remove("valid")
       console.log('not registered');  
     }
     // If credit card field is not hidden, validates CC# is between 13- 16 digits,zip of 5 digitsand cvv of 3 digits
     if(creditCard.hasAttribute('hidden') === false) {
       if(cardCheck === false) {
       e.preventDefault();
+        if(cardRegex === false) {
+          cardNumber.parentNode.classList.add("not-valid")
+          cardNumber.parentNode.classList.remove("valid")
+        }
+        if(zipRegex === false) {
+          zipcode.parentNode.classList.add("not-valid")
+          zipcode.parentNode.classList.remove("valid")
+        }
+        if(cvvRegex === false) {
+          cvv.parentNode.classList.add("not-valid")
+          cvv.parentNode.classList.remove("valid")
+        }
       console.log('invalid credit card');
       }
     }
