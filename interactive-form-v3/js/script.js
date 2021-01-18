@@ -88,6 +88,20 @@ payment.addEventListener('change',(e) => {
 }
     
  });
+ //Functions to add and remove classes to form fields
+function addNotValid(name) {
+  return   name.parentNode.classList.add("not-valid")
+};
+function removeValid(name) {
+  return name.parentNode.classList.remove("valid")
+};
+function addValid(name) {
+  return name.parentNode.classList.add("valid")
+};
+function removeNotValid(name) {
+  return name.parentNode.classList.remove("not-valid")
+};
+
 //Event listener for form field validations
  form.addEventListener('submit',(e) => {
    e.preventDefault();
@@ -106,47 +120,71 @@ payment.addEventListener('change',(e) => {
     // Validates name field is filled out with more than 3 characters
     if(nameRegex === false) {
       e.preventDefault();
-      nameField.parentNode.classList.add("not-valid")
-      nameField.parentNode.classList.remove("valid")
+      addNotValid(nameField);
+      removeValid(nameField);
       console.log('invalid name');
-    }
-    if(nameRegex === true) {
-        e.preventDefault();
-        nameField.parentNode.classList.add("valid")
-        nameField.parentNode.classList.remove("not-valid")
+    } else {
+        addValid(nameField);
+        removeNotValid(nameField);
         console.log('valid name');
-      }
+    }
+   
     // Validates email field is filled out with valid email
     if(emailRegex === false) {
-       e.preventDefault();
-       email.parentNode.classList.add("not-valid")
-       email.parentNode.classList.remove("valid")
+      e.preventDefault();
+      addNotValid(email);
+      removeValid(email);
        console.log('invalid email');
-    } 
+    } else {
+       addValid(email);
+       removeNotValid(email);
+        console.log('valid email');
+    }
+   
     // Validates registered field is checked with at least one activity
     if(registered === 0) {
       e.preventDefault();
       register.classList.add("not-valid")
       register.classList.remove("valid")
       console.log('not registered');  
+    } else {
+        register.classList.add("valid")
+        register.classList.remove("not-valid")
+        console.log('registered'); 
     }
     // If credit card field is not hidden, validates CC# is between 13- 16 digits,zip of 5 digitsand cvv of 3 digits
     if(creditCard.hasAttribute('hidden') === false) {
       if(cardCheck === false) {
       e.preventDefault();
         if(cardRegex === false) {
-          cardNumber.parentNode.classList.add("not-valid")
-          cardNumber.parentNode.classList.remove("valid")
+          addNotValid(cardNumber);
+          removeValid(cardNumber);
+        } else {
+          addValid(cardNumber);
+          removeNotValid(cardNumber);
         }
         if(zipRegex === false) {
-          zipcode.parentNode.classList.add("not-valid")
-          zipcode.parentNode.classList.remove("valid")
+          addNotValid(zipcode);
+          removeValid(zipcode);
+        } else {
+          addValid(zipcode);
+          removeNotValid(zipcode);
         }
         if(cvvRegex === false) {
-          cvv.parentNode.classList.add("not-valid")
-          cvv.parentNode.classList.remove("valid")
+          addNotValid(cvv);
+          removeValid(cvv);
+        } else {
+          addValid(cvv);
+          removeNotValid(cvv);
         }
       console.log('invalid credit card');
+      } else {
+        addValid(cardNumber);
+        removeNotValid(cardNumber);
+        addValid(zipcode);
+        removeNotValid(zipcode);
+        addValid(cvv);
+        removeNotValid(cvv);
       }
     }
  });
