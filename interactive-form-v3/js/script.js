@@ -122,10 +122,12 @@ function removeNotValid(name) {
       e.preventDefault();
       addNotValid(nameField);
       removeValid(nameField);
+      nameField.parentNode.lastElementChild.style.display = 'inherit';
       console.log('invalid name');
     } else {
         addValid(nameField);
         removeNotValid(nameField);
+        nameField.parentNode.lastElementChild.style.display = 'none';
         console.log('valid name');
     }
    
@@ -134,10 +136,12 @@ function removeNotValid(name) {
       e.preventDefault();
       addNotValid(email);
       removeValid(email);
+      email.parentNode.lastElementChild.style.display = 'inherit';
        console.log('invalid email');
     } else {
        addValid(email);
        removeNotValid(email);
+       email.parentNode.lastElementChild.style.display = 'none';
         console.log('valid email');
     }
    
@@ -146,10 +150,12 @@ function removeNotValid(name) {
       e.preventDefault();
       register.classList.add("not-valid")
       register.classList.remove("valid")
+      register.lastElementChild.style.display = 'inherit'
       console.log('not registered');  
     } else {
         register.classList.add("valid")
         register.classList.remove("not-valid")
+        register.lastElementChild.style.display = 'none'
         console.log('registered'); 
     }
     // If credit card field is not hidden, validates CC# is between 13- 16 digits,zip of 5 digitsand cvv of 3 digits
@@ -159,24 +165,30 @@ function removeNotValid(name) {
         if(cardRegex === false) {
           addNotValid(cardNumber);
           removeValid(cardNumber);
+          cardNumber.parentNode.lastElementChild.style.display = 'inherit';
         } else {
           addValid(cardNumber);
           removeNotValid(cardNumber);
+          cardNumber.parentNode.lastElementChild.style.display = 'none';
         }
         if(zipRegex === false) {
           addNotValid(zipcode);
           removeValid(zipcode);
+          zipcode.parentNode.lastElementChild.style.display = 'inherit';
         } else {
           addValid(zipcode);
           removeNotValid(zipcode);
+          zipcode.parentNode.lastElementChild.style.display = 'none';
         }
         if(cvvRegex === false) {
           addNotValid(cvv);
           removeValid(cvv);
+          cvv.parentNode.lastElementChild.style.display = 'inherit';
         } else {
           addValid(cvv);
           removeNotValid(cvv);
-        }
+          cvv.parentNode.lastElementChild.style.display = 'none';
+        } 
       console.log('invalid credit card');
       } else {
         addValid(cardNumber);
@@ -185,6 +197,9 @@ function removeNotValid(name) {
         removeNotValid(zipcode);
         addValid(cvv);
         removeNotValid(cvv);
+        cardNumber.parentNode.lastElementChild.style.display = 'none';
+        zipcode.parentNode.lastElementChild.style.display = 'none';
+        cvv.parentNode.lastElementChild.style.display = 'none';
       }
     }
  });
