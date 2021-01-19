@@ -39,6 +39,21 @@ design.addEventListener('change',(e) => {
     }
 });
 
+// Focus and blur event for tabbing through checkboxes on the form
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+for(let i = 0; i < checkboxes.length; i++) {
+
+    const cbLabel = checkboxes[i].parentNode;
+  
+   checkboxes[i].addEventListener('focus',(e) => {
+       cbLabel.classList.add('focus');
+    });
+    checkboxes[i].addEventListener('blur',(e) => {
+        cbLabel.classList.remove('focus');  
+    });
+}
+
 //Variables to reference the "Register for Activities" section
 const register = document.getElementById('activities');
 const total = document.getElementById('activities-cost');
@@ -102,9 +117,9 @@ function removeNotValid(name) {
   return name.parentNode.classList.remove("not-valid")
 };
 
-//Event listener for form field validations
+//Event listener for form field validations and warn user on fields not validated
  form.addEventListener('submit',(e) => {
-   e.preventDefault();
+
     const nameValue = nameField.value
     const nameRegex = /^\w{3,}$/.test(nameValue)
     const emailValue = email.value
@@ -122,13 +137,11 @@ function removeNotValid(name) {
       e.preventDefault();
       addNotValid(nameField);
       removeValid(nameField);
-      nameField.parentNode.lastElementChild.style.display = 'inherit';
-      console.log('invalid name');
+      nameField.parentNode.lastElementChild.style.display = 'block';
     } else {
         addValid(nameField);
         removeNotValid(nameField);
-        nameField.parentNode.lastElementChild.style.display = 'none';
-        console.log('valid name');
+        nameField.parentNode.lastElementChild.style.display = 'none'; 
     }
    
     // Validates email field is filled out with valid email
@@ -136,13 +149,11 @@ function removeNotValid(name) {
       e.preventDefault();
       addNotValid(email);
       removeValid(email);
-      email.parentNode.lastElementChild.style.display = 'inherit';
-       console.log('invalid email');
+      email.parentNode.lastElementChild.style.display = 'block';
     } else {
        addValid(email);
        removeNotValid(email);
-       email.parentNode.lastElementChild.style.display = 'none';
-        console.log('valid email');
+       email.parentNode.lastElementChild.style.display = 'none'; 
     }
    
     // Validates registered field is checked with at least one activity
@@ -150,22 +161,20 @@ function removeNotValid(name) {
       e.preventDefault();
       register.classList.add("not-valid")
       register.classList.remove("valid")
-      register.lastElementChild.style.display = 'inherit'
-      console.log('not registered');  
+      register.lastElementChild.style.display = 'block' 
     } else {
         register.classList.add("valid")
         register.classList.remove("not-valid")
-        register.lastElementChild.style.display = 'none'
-        console.log('registered'); 
+        register.lastElementChild.style.display = 'none'  
     }
     // If credit card field is not hidden, validates CC# is between 13- 16 digits,zip of 5 digitsand cvv of 3 digits
     if(creditCard.hasAttribute('hidden') === false) {
       if(cardCheck === false) {
-      e.preventDefault();
+        e.preventDefault();
         if(cardRegex === false) {
           addNotValid(cardNumber);
           removeValid(cardNumber);
-          cardNumber.parentNode.lastElementChild.style.display = 'inherit';
+          cardNumber.parentNode.lastElementChild.style.display = 'block';
         } else {
           addValid(cardNumber);
           removeNotValid(cardNumber);
@@ -174,7 +183,7 @@ function removeNotValid(name) {
         if(zipRegex === false) {
           addNotValid(zipcode);
           removeValid(zipcode);
-          zipcode.parentNode.lastElementChild.style.display = 'inherit';
+          zipcode.parentNode.lastElementChild.style.display = 'block';
         } else {
           addValid(zipcode);
           removeNotValid(zipcode);
@@ -183,13 +192,12 @@ function removeNotValid(name) {
         if(cvvRegex === false) {
           addNotValid(cvv);
           removeValid(cvv);
-          cvv.parentNode.lastElementChild.style.display = 'inherit';
+          cvv.parentNode.lastElementChild.style.display = 'block';
         } else {
           addValid(cvv);
           removeNotValid(cvv);
           cvv.parentNode.lastElementChild.style.display = 'none';
         } 
-      console.log('invalid credit card');
       } else {
         addValid(cardNumber);
         removeNotValid(cardNumber);
@@ -203,4 +211,3 @@ function removeNotValid(name) {
       }
     }
  });
- 
