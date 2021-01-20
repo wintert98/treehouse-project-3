@@ -32,9 +32,11 @@ design.addEventListener('change',(e) => {
       const designValue = e.target.value;
       const colorOption = color.children[i].getAttribute("data-theme");
      if(designValue === colorOption) {
-       color.children[i].removeAttribute('hidden')
-     } else {
-        color.children[i].setAttribute('hidden', 'hidden') 
+      color.children[i].hidden = false;
+      color.children[i].selected = true;
+    } else if (designValue !== colorOption) {
+      color.children[i].hidden = true;
+      color.children[i].selected = false;
      } 
     }
 });
@@ -83,6 +85,10 @@ const payPal = document.getElementById('paypal');
 const bitCoin = document.getElementById('bitcoin');
 payPal.setAttribute('hidden', 'hidden')
 bitCoin.setAttribute('hidden', 'hidden')
+
+// Shows creditcard as default option
+payment.selectedIndex = 1;
+
 //Event listener for payment selection and hide unselected options
 payment.addEventListener('change',(e) => {
     
